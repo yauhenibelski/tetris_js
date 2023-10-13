@@ -1,19 +1,21 @@
-export const figures = [
-  {
-    I: {
-      positions: [
-        [
-          [1, 1, 1, 1],
-        ],
-        [
-          [1],
-          [1],
-          [1],
-          [1],
-        ]
+export const figures = new Map([
+  [
+    'I', {
+    positions: [
+      [
+        [1],
+        [1],
+        [1],
+        [1],
+      ],
+      [
+        [1, 1, 1, 1],
       ]
-    },
-    S: {
+    ]
+  },
+  ],
+  [
+    'S', {
       positions: [
         [
           [0, 1],
@@ -26,15 +28,19 @@ export const figures = [
         ],
       ]
     },
-    sq: {
+  ],
+  [
+    'sq', {
       positions: [
         [
-          [1,1],
-          [1,1]
+          [1, 1],
+          [1, 1]
         ]
       ]
     },
-    L: {
+  ],
+  [
+    'L', {
       positions: [
         [
           [1, 0],
@@ -56,7 +62,9 @@ export const figures = [
         ],
       ]
     },
-    rL: {
+  ],
+  [
+    'rL', {
       positions: [
         [
           [0, 1],
@@ -78,7 +86,9 @@ export const figures = [
         ],
       ]
     },
-    T: {
+  ],
+  [
+    'T', {
       positions: [
         [
           [0, 1, 0],
@@ -100,7 +110,9 @@ export const figures = [
         ],
       ]
     },
-    rS: {
+  ],
+  [
+    'rS', {
       positions: [
         [
           [1, 0],
@@ -113,5 +125,5 @@ export const figures = [
         ],
       ]
     },
-  }
-];
+  ]
+]);

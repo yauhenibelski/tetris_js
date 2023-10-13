@@ -63,14 +63,18 @@ class App {
     this.moveFigure('down');
     this.moveFigure('right');
     this.moveFigure('right');
+    // this.moveFigure('down');
+    this.moveFigure('right');
+    this.moveFigure('right');
+    this.moveFigure('right');
+    // this.moveFigure('left');
+    // this.moveFigure('left');
+    // this.moveFigure('left');
+    this.moveFigure('right');
     this.moveFigure('down');
-    this.moveFigure('right');
-    this.moveFigure('right');
-    this.moveFigure('right');
-    // this.moveFigure('left');
-    // this.moveFigure('left');
-    // this.moveFigure('left');
-    // this.moveFigure('right');
+    this.moveFigure('down');
+    // this.moveFigure('down');
+    // this.moveFigure('down');
 
     // this.addFigure();
     // console.log(this.ifFigureInField());

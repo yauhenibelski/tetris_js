@@ -1,22 +1,28 @@
 function moveFigure(val) {
   switch(val) {
     case 'down': {
-      if (this.ifFigureInField() && this.ifBelowTheFigureFree()) {
+      if (this.ifFigureInField() && this.ifSpaceBelowIsFree()) {
         this.currentFigure.y += 1;
       }
       break;
     }
     case 'left': {
-      this.currentFigure.x -= 1;
-      if (!this.ifFigureInField()) {
-        this.currentFigure.x += 1;
+      if (this.ifSpaceInTheLefOrRightOfFigure()) {
+        this.currentFigure.x -= 1;
+
+        if (!this.ifFigureInField()) {
+          this.currentFigure.x += 1;
+        }
       }
       break;
     }
     case 'right': {
-      this.currentFigure.x += 1;
-      if (!this.ifFigureInField()) {
-        this.currentFigure.x -= 1;
+      if (this.ifSpaceInTheLefOrRightOfFigure()) {
+        this.currentFigure.x += 1;
+
+        if (!this.ifFigureInField()) {
+          this.currentFigure.x -= 1;
+        }
       }
       break;
     }

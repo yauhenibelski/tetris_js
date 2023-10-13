@@ -1,4 +1,4 @@
-function ifBelowTheFigureFree() {
+function ifSpaceBelowIsFree() {
   if (this.ifFigureInField()) {
     const { x: positionX, y: positionY, figure: currentFigureMatrix } = this.currentFigure;
     const fieldLength = this.field.length;
@@ -25,4 +25,4 @@ function ifBelowTheFigureFree() {
     return ifFieldItemsUnderItemsFigureFree;
   }
 }
-export default ifBelowTheFigureFree;
+export default ifSpaceBelowIsFree;

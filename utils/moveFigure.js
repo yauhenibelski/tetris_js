@@ -1,7 +1,7 @@
 function moveFigure(val) {
   switch(val) {
     case 'down': {
-      if (this.ifFigureInField() && !this.ifBelowTheFigureFree) {
+      if (this.ifFigureInField() && this.ifBelowTheFigureFree()) {
         this.currentFigure.y += 1;
       }
       break;

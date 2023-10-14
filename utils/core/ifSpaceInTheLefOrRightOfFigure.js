@@ -1,4 +1,4 @@
-function ifSpaceInTheLefOrRightOfFigure(val) {
+function ifSpaceInTheLeftOrRightOfFigure(val) {
   const { x: positionX, y: positionY, figure: currentFigureMatrix } = this.currentFigure;
   const figureSize = currentFigureMatrix[0].length;
   const position = val === 'left' ? positionX  - 1 : positionX + figureSize;
@@ -9,8 +9,7 @@ function ifSpaceInTheLefOrRightOfFigure(val) {
     return item;
   });
 
-  console.log(!itemLeftOfRightOfFigure.some((v) => v !== 0));
   return !itemLeftOfRightOfFigure.some((v) => v !== 0);
 }
 
-export default ifSpaceInTheLefOrRightOfFigure;
+export default ifSpaceInTheLeftOrRightOfFigure;

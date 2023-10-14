@@ -7,7 +7,7 @@ function moveFigure(val) {
       break;
     }
     case 'left': {
-      if (this.ifSpaceInTheLefOrRightOfFigure()) {
+      if (this.ifSpaceInTheLeftOrRightOfFigure('left')) {
         this.currentFigure.x -= 1;
 
         if (!this.ifFigureInField()) {
@@ -17,7 +17,7 @@ function moveFigure(val) {
       break;
     }
     case 'right': {
-      if (this.ifSpaceInTheLefOrRightOfFigure()) {
+      if (this.ifSpaceInTheLeftOrRightOfFigure('right')) {
         this.currentFigure.x += 1;
 
         if (!this.ifFigureInField()) {

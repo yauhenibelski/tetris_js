@@ -13,6 +13,5 @@ function addFigure() {
       }
     });
   })
-  console.log(this)
 }
 export default addFigure;

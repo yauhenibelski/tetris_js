@@ -1,4 +1,6 @@
 import createElement from '../utils/view/createElement.js';
+import getItemsByYIndex from '../utils/view/getItemsByYindex.js';
+import getItemsUntilYIndex from '../utils/view/getItemsUntilYindex.js';
 
 class View {
   constructor(game, container) {
@@ -68,35 +70,59 @@ class View {
     });
   }
 
+  moveDown() {
+    const { moveFigure, ifSpaceBelowIsFree, ifRowFull, removeFullRow, field } = this.game;
+
+    moveFigure('down');
+
+    this.renderFigure();
+
+    if(!ifSpaceBelowIsFree()) {
+      this.fixationFigure();
+
+      const fullRows = ifRowFull.bind(this.game)();
+      const removeFullMatrixRow = removeFullRow.bind(this.game);
+
+      if (fullRows) {
+        const rows = this.game.field.length - 1;
+        const itemsContainers = Array.from(document.querySelectorAll('.figure-container'));
+        const items = Array.from(document.querySelectorAll('.item'));
+
+        // remove && move down items
+        field.forEach((line, i) => {
+          const currentLine = getItemsByYIndex(items, i)
+          const itemsToMoveDown = getItemsUntilYIndex(items, i)
+
+          if (line.every((v) => v === 1)) {
+            currentLine.forEach((elem) => elem.remove());
+            removeFullMatrixRow(i);
+
+            itemsToMoveDown.forEach((elem) => {
+              const top = parseInt(elem.style.top);
+              const height = parseInt(elem.style.height);
+              const y = Number(elem.getAttribute('y'))
+
+              elem.setAttribute('y', y + 1 === rows ? rows : y + 1);
+              elem.style.top = `${top + height}px`;
+            })
+
+          }
+        });
+
+        // remove empty containers
+        itemsContainers.forEach((elem) => elem.firstChild ? false : elem.remove());
+      }
+      this.addNewFigure();
+      console.log([...field].join('\n'));
+    }
+  };
+
   moveFigure() {
     document.onkeydown = (e) => {
-      const { moveFigure, ifSpaceBelowIsFree, ifRowFill, rotateFigure } = this.game;
+      const { moveFigure, rotateFigure } = this.game;
 
       if ( e.key === 'ArrowDown') {
-        moveFigure('down');
-        this.renderFigure();
-
-        if(!ifSpaceBelowIsFree()) {
-          this.fixationFigure();
-
-          // if (ifRowFill.bind(this.game)()) {
-          //   const fullRows = ifRowFill.bind(this.game)();
-
-          //   const items = Array.from(document.querySelectorAll('.item'))
-          //     .filter((elem) => fullRows.includes(Number(elem.getAttribute('y'))));
-
-          //   items.forEach((item) => item.remove());
-
-          //   // itemsContainers.forEach((elem) => {
-          //   //   const top = parseInt(elem.style.top);
-          //   //   const height = parseInt(elem.children[0].style.height);
-
-          //   //   elem.style.top = `${top + height}px`;
-          //   // });
-          // }
-
-          this.addNewFigure();
-        }
+        this.moveDown();
       }
       if ( e.key === 'ArrowLeft') {
         moveFigure('left');
@@ -137,6 +163,9 @@ class View {
   run() {
     this.moveFigure();
     this.container.append(this.currentFigure)
+    // setInterval(() => {
+    //   this.moveDown();
+    // }, 500);
   }
 }
 

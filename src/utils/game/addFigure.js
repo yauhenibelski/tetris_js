@@ -1,6 +1,5 @@
 function addFigure() {
   const { x: positionX, y: positionY, figure: currentFigureMatrix } = this.currentFigure;
-
   currentFigureMatrix.forEach((line, lineIndex) => {
     line.forEach((columItem, columIndex) => {
       if (this.ifFigureInField()) {
@@ -14,5 +13,6 @@ function addFigure() {
       }
     });
   })
+  console.log(this)
 }
 export default addFigure;

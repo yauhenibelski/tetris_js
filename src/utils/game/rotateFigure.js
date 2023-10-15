@@ -5,6 +5,7 @@ function rotateFigure() {
 
   const nextPositionIndex = positions[positionIndex + 1] ? positionIndex + 1 : 0;
   const nextPositionFigure = positions[nextPositionIndex];
+
   const nextFigureWidth = nextPositionFigure[0].length;
   const nextFigureHeight = nextPositionFigure.filter((v) => v.every((e) => e !== 0)).length;
 

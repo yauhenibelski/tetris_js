@@ -1,7 +1,7 @@
 import createElement from '../utils/view/createElement.js';
 import getItemsByYIndex from '../utils/view/getItemsByYindex.js';
 import getItemsUntilYIndex from '../utils/view/getItemsUntilYindex.js';
-import { results, saveResultInLocalStorage } from '../utils/view/results.js';
+import { results, saveResultInLocalStorage, showResult } from '../utils/view/results.js';
 
 class View {
   constructor(game, container) {
@@ -90,7 +90,9 @@ class View {
       alert(`Your result ${this.lines.innerText} Lines!`);
 
       results.addResult([this.lines.innerText, `${data.getDate()}.${data.getMonth() + 1}.${data.getFullYear()} - ${data.getHours()}:${data.getMinutes()}`])
+
       saveResultInLocalStorage();
+      showResult(this.resultElem);
 
       this.game.field = new Array(20).fill(0).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0]);
       this.field.innerHTML = '';
@@ -194,12 +196,10 @@ class View {
   run() {
     this.moveFigure();
     this.field.append(this.currentFigure);
+    showResult(this.resultElem);
 
-    true ? this.resultElem.innerHTML = '<h2>No results</h2>' : false;
+    alert(`Управление стрелками на клавиатуре \n Ps: Стрелка вверх вращает фигуру`);
 
-    alert(`
-      Управление стрелками на клавиатуре
-    `);
     this.interval = setInterval(() => {
       this.moveDown();
     }, 500);

@@ -15,6 +15,8 @@ class View {
     this.interval = undefined;
     this.lines = this.container.querySelector('.lines');
     this.resultElem = this.container.querySelector('.results');
+    this.audio = document.querySelector('audio');
+    this.muteBTN = document.querySelector('#mute');
   }
 
   addFigure() {
@@ -96,6 +98,7 @@ class View {
 
       this.game.field = new Array(20).fill(0).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0]);
       this.field.innerHTML = '';
+      this.lines.innerHTML = 0;
       this.currentFigure = this.addFigure();
       this.field.append(this.currentFigure);
       this.interval = setInterval(() => {
@@ -196,9 +199,20 @@ class View {
   run() {
     this.moveFigure();
     this.field.append(this.currentFigure);
-    showResult(this.resultElem);
 
     alert(`Управление стрелками на клавиатуре \n Ps: Стрелка вверх вращает фигуру`);
+
+    showResult(this.resultElem);
+
+    this.muteBTN.onclick = (e) => {
+      if (this.audio.paused) {
+        this.audio.play();
+        this.muteBTN.innerText = 'Mute OFF'
+      } else {
+        this.audio.pause();
+        this.muteBTN.innerText = 'Mute ON'
+      }
+    }
 
     this.interval = setInterval(() => {
       this.moveDown();

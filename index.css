@@ -1,3 +1,9 @@
+body {
+  background-color: #c37175;
+  background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%23858585' fill-opacity='0.69'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  color: azure;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
 .container {
   display: flex;
   justify-content: space-evenly;
@@ -5,7 +11,7 @@
 }
 .field {
   display: block;
-  background-color: rgb(0 0 0 / 14%);
+  background-color: rgb(219 203 203 / 25%);
   width: 320px;
   height: 640px;
   position: relative;
@@ -29,17 +35,28 @@
 footer {
   display: flex;
   align-items: center;
-
+  margin-top: 10px;
 }
 .rs-logo {
   display: block;
   background-image: url('https://rs.school/images/rs_school_js.svg');
   background-size: 100% 100%;
-  width: 8vmax;
-  height: 2vmax;
+  width: 60px;
+  height: 25px;
 }
 .gh-link {
-  color: #000000;
+  color: black;
   text-decoration: none;
   margin-right: 1%;
+}
+h2 {
+  text-align: center;
+}
+footer span {
+  color: black;
+}
+button {
+  background-color: rgb(215, 215, 215);
+  width: 100px;
+  cursor: pointer;
 }

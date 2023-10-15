@@ -65,16 +65,14 @@ class Game {
       : false;
   }
   removeFullRow(index) {
-    // const fullLinesNum = indices.length;
-    // const addCleanLine = new Array(fullLinesNum).fill([0, 0, 0, 0, 0, 0, 0, 0, 0]);
     const cleanLine = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     const f = [...this.field].filter((_, i) => i !== index);
     this.field = f;
     this.field.unshift(cleanLine);
+  }
 
-    // this.field = this.field.filter((line) => !line.every((v) => v === 1));
-
-    // addCleanLine.forEach((line) => this.field.unshift(line))
+  ifGameLost() {
+    return this.field[2].some((v) => v === 1);
   }
 }
 

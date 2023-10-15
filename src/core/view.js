@@ -1,13 +1,20 @@
 import createElement from '../utils/view/createElement.js';
 import getItemsByYIndex from '../utils/view/getItemsByYindex.js';
 import getItemsUntilYIndex from '../utils/view/getItemsUntilYindex.js';
+import { results, saveResultInLocalStorage } from '../utils/view/results.js';
 
 class View {
   constructor(game, container) {
-    this.container = container;
+    this.rootContainer = container;
+    this.container = container.firstElementChild;
+    this.field = this.container.querySelector('.field');
+
     this.game = game;
     this.randomColor = `#${Math.random().toString(16).substring(2, 8)}`;
     this.currentFigure = this.addFigure();
+    this.interval = undefined;
+    this.lines = this.container.querySelector('.lines');
+    this.resultElem = this.container.querySelector('.results');
   }
 
   addFigure() {
@@ -16,8 +23,8 @@ class View {
     const { figure, y, x } = this.game.currentFigure;
     const { field } = this.game;
     const figureContainer = createElement({ tagName: 'div', className: 'figure-container' });
-    const width = this.container.offsetWidth / field[0].length;
-    const height = this.container.offsetHeight / field.length;
+    const width = this.field.offsetWidth / field[0].length;
+    const height = this.field.offsetHeight / field.length;
 
     figure.forEach((line, lineIndex) => {
       line.forEach((columItem, columIndex) => {
@@ -46,8 +53,8 @@ class View {
 
     const { figure, y, x } = this.game.currentFigure;
     const { field } = this.game;
-    const width = this.container.offsetWidth / field[0].length;
-    const height = this.container.offsetHeight / field.length;
+    const width = this.field.offsetWidth / field[0].length;
+    const height = this.field.offsetHeight / field.length;
 
     figure.forEach((line, lineIndex) => {
       line.forEach((columItem, columIndex) => {
@@ -71,7 +78,29 @@ class View {
   }
 
   moveDown() {
-    const { moveFigure, ifSpaceBelowIsFree, ifRowFull, removeFullRow, field } = this.game;
+    const { moveFigure, ifSpaceBelowIsFree, ifRowFull, removeFullRow, field, ifGameLost } = this.game;
+
+    const lostGame = ifGameLost.bind(this.game);
+
+    if (lostGame()) {
+      clearInterval(this.interval);
+      const data = new Date()
+
+      // добавить попап и навести порядок
+      alert(`Your result ${this.lines.innerText} Lines!`);
+
+      results.addResult([this.lines.innerText, `${data.getDate()}.${data.getMonth() + 1}.${data.getFullYear()} - ${data.getHours()}:${data.getMinutes()}`])
+      saveResultInLocalStorage();
+
+      this.game.field = new Array(20).fill(0).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0]);
+      this.field.innerHTML = '';
+      this.currentFigure = this.addFigure();
+      this.field.append(this.currentFigure);
+      this.interval = setInterval(() => {
+        this.moveDown();
+      }, 500);
+      return;
+    }
 
     moveFigure('down');
 
@@ -96,6 +125,7 @@ class View {
           if (line.every((v) => v === 1)) {
             currentLine.forEach((elem) => elem.remove());
             removeFullMatrixRow(i);
+            this.lines.innerText = `${Number(this.lines.innerText) + 1}`;
 
             itemsToMoveDown.forEach((elem) => {
               const top = parseInt(elem.style.top);
@@ -113,26 +143,27 @@ class View {
         itemsContainers.forEach((elem) => elem.firstChild ? false : elem.remove());
       }
       this.addNewFigure();
-      console.log([...field].join('\n'));
+      // console.log([...field].join('\n'));
     }
   };
 
   moveFigure() {
     document.onkeydown = (e) => {
-      const { moveFigure, rotateFigure } = this.game;
+      const { moveFigure, rotateFigure, ifGameLost } = this.game;
+      const lostGame = ifGameLost.bind(this.game);
 
       if ( e.key === 'ArrowDown') {
         this.moveDown();
       }
-      if ( e.key === 'ArrowLeft') {
+      if ( e.key === 'ArrowLeft' && !lostGame()) {
         moveFigure('left');
         this.renderFigure();
       }
-      if ( e.key === 'ArrowRight') {
+      if ( e.key === 'ArrowRight' && !lostGame()) {
         moveFigure('right');
         this.renderFigure();
       }
-      if ( e.key === 'ArrowUp') {
+      if ( e.key === 'ArrowUp' && !lostGame()) {
         rotateFigure();
         this.renderFigure();
       }
@@ -144,7 +175,7 @@ class View {
     addNewFigure();
 
     this.currentFigure = this.addFigure();
-    this.container.append(this.currentFigure);
+    this.field.append(this.currentFigure);
   }
 
   fixationFigure() {
@@ -162,10 +193,16 @@ class View {
 
   run() {
     this.moveFigure();
-    this.container.append(this.currentFigure)
-    // setInterval(() => {
-    //   this.moveDown();
-    // }, 500);
+    this.field.append(this.currentFigure);
+
+    true ? this.resultElem.innerHTML = '<h2>No results</h2>' : false;
+
+    alert(`
+      Управление стрелками на клавиатуре
+    `);
+    this.interval = setInterval(() => {
+      this.moveDown();
+    }, 500);
   }
 }
 

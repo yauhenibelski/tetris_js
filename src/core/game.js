@@ -29,6 +29,41 @@ class Game {
   addNewFigure = addNewFigure.bind(this);
   moveFigure = moveFigure.bind(this);
   addFigure = addFigure.bind(this);
+
+  getPositionNewFigureInMatrix() {
+    const lastPositions = new Array(20).fill(0).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    const currentFigurePosition = [];
+
+    this.field.forEach((line, lineIndex) => {
+      line.forEach((columItem, columIndex) => {
+        lastPositions[lineIndex][columIndex] = columItem;
+      });
+    });
+
+    this.addFigure();
+
+    lastPositions.forEach((line, lineIndex) => {
+      line.forEach((columItem, columIndex) => {
+        if (this.field[lineIndex][columIndex] !== columItem) {
+          currentFigurePosition.push([lineIndex, columIndex]);
+        };
+      });
+    })
+    return currentFigurePosition;
+  }
+
+  ifRowFill() {
+    const rowIndexes = this.field.map((val, i) => {
+      if (val.every((e) => e === 1)) {
+        return i;
+      }
+    })
+      .filter(e => e !== undefined);
+
+    return rowIndexes.length
+      ? rowIndexes
+      : false;
+  }
 }
 
 export default Game;

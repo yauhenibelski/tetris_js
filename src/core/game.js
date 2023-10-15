@@ -1,14 +1,14 @@
 import { figures } from "../../assets/figures.js";
-import addFigure from "../utils/addFigure.js";
-import { getRandomNum } from "../utils/getRandomNum.js";
-import ifSpaceBelowIsFree from "../utils/ifSpaceBelowIsFree.js";
-import ifFigureInField from "../utils/ifFigureInField.js";
-import moveFigure from "../utils/moveFigure.js";
-import ifSpaceInTheLeftOrRightOfFigure from "../utils/ifSpaceInTheLefOrRightOfFigure.js";
-import rotateFigure from "../utils/rotateFigure.js";
+import addFigure from "../utils/game/addFigure.js";
+import { getRandomNum } from "../utils/game/getRandomNum.js";
+import ifSpaceBelowIsFree from "../utils/game/ifSpaceBelowIsFree.js";
+import ifFigureInField from "../utils/game/ifFigureInField.js";
+import moveFigure from "../utils/game/moveFigure.js";
+import ifSpaceInTheLeftOrRightOfFigure from "../utils/game/ifSpaceInTheLefOrRightOfFigure.js";
+import rotateFigure from "../utils/game/rotateFigure.js";
 
 class Game {
-  field = new Array(20).fill(0).map(() => [0,0,0,0,0,0,0,0,0]);
+  field = new Array(20).fill(0).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
   figuresKeys = Object.keys(Object.fromEntries(figures));
 

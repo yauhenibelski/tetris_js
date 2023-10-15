@@ -1,7 +1,21 @@
-html {
-  font-size: 36px;
-  /* color: gainsboro; */
-}
 body {
-  /* background-color: black; */
+  display: flex;
+  justify-content: center;
+}
+#root {
+  margin: auto;
+  background-color: rgb(128, 128, 128);
+  width: 320px;
+  height: 640px;
+  position: relative;
+}
+.figure-container {
+  position: absolute;
+  box-sizing: border-box;
+}
+.item {
+  box-sizing: border-box;
+  position: absolute;
+  background-color: rgb(121, 64, 98);
+  border: 1px solid rgba(0, 0, 0, 0.437);
 }

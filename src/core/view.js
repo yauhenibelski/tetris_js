@@ -202,6 +202,36 @@ class View {
 
     alert(`Управление стрелками на клавиатуре \n Ps: Стрелка вверх вращает фигуру`);
 
+
+    let clientX;
+    let clientY; 
+ 
+    document.body.oncontextmenu = (e) => e.stopPropagation(); 
+    document.body.ontouchstart = (e) => {
+      clientX = e.changedTouches[0].clientX;
+      clientY = e.changedTouches[0].clientY;
+    };
+    document.body.ontouchend = (e) => {
+      const differenceX = e.changedTouches[0].clientX - clientX;
+      const differenceY = e.changedTouches[0].clientY - clientY;
+
+      if(Math.abs(differenceX) > Math.abs(differenceY)) {
+        const value = differenceX > 0 ? 'right' : 'left';
+        if (Math.abs(differenceX) > 30) {
+          this.game.moveFigure(value);
+          this.renderFigure();
+        }
+      } else {
+        const value = differenceY > 0 ? 'down' : 'top';
+        if (Math.abs(differenceY) < 30) return;
+        if (value === 'down') this.moveDown();
+        if (value === 'top') {
+          this.game.rotateFigure();
+          this.renderFigure();
+        }
+      }
+    };
+
     showResult(this.resultElem);
 
     this.muteBTN.onclick = (e) => {

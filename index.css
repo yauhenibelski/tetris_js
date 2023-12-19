@@ -60,3 +60,10 @@ button {
   width: 100px;
   cursor: pointer;
 }
+
+@media (max-width: 720px) {
+  .results-table,
+  .score {
+    display: none;
+  }
+}
